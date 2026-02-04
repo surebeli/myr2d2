@@ -1,0 +1,6 @@
+[submodule "thirdparty/myopenclaw"]
+	path = thirdparty/myopenclaw
+	url = https://github.com/surebeli/myopenclaw
+[submodule "thirdparty/my-xiaozhi-esp32"]
+	path = thirdparty/my-xiaozhi-esp32
+	url = https://github.com/surebeli/my-xiaozhi-esp32
