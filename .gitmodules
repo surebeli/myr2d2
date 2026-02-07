@@ -4,3 +4,6 @@
 [submodule "thirdparty/my-xiaozhi-esp32"]
 	path = thirdparty/my-xiaozhi-esp32
 	url = https://github.com/surebeli/my-xiaozhi-esp32
+[submodule "thirdparty/mynanobot"]
+	path = thirdparty/mynanobot
+	url = https://github.com/surebeli/mynanobot
