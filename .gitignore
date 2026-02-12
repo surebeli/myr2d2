@@ -2,9 +2,23 @@
 
 .trae/
 
-src/node_modules/
-src/dist/
+LocalModelMacOS/
 
 **/node_modules/
 **/dist/
+**/build/
+**/DerivedData/
+**/.gradle/
+**/Pods/
+**/.bundle/
 
+**/*.keystore
+**/*.jks
+**/*.p12
+**/*.pem
+**/*.key
+**/*.mobileprovision
+
+**/.xcode.env.local
+
+thirdparty/my-local-model/models/

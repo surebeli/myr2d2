@@ -1,0 +1,10 @@
+{
+  "name": "react-native-cmd-run",
+  "version": "1.0.0",
+  "description": "Run shell commands on macOS",
+  "main": "index.js",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  }
+}
