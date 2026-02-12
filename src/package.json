@@ -1,0 +1,22 @@
+{
+  "name": "myr2d2",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/cli.js",
+    "xiaozhi:server": "node dist/xiaozhi-server/cli.js",
+    "routeb:node": "node dist/route-b/cli.js",
+    "audio:plane": "node dist/audio-plane/cli.js",
+    "test": "node --test dist/tests"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.7.3"
+  }
+}

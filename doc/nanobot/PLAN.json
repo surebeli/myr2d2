@@ -1,0 +1,187 @@
+{
+  "project": {
+    "name": "mynanobot (nanobot-ai)",
+    "root": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot",
+    "doc_output": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/nanobot"
+  },
+  "environment": {
+    "ide": "Trae IDE",
+    "os": "macOS",
+    "scheme_choice": "TRAE multi-agent (parallel read-only analysis)"
+  },
+  "scale": {
+    "files_total": 84,
+    "python_files": 46,
+    "top_level_dirs": ["bridge", "case", "nanobot", "tests", "workspace"]
+  },
+  "tech_stack": {
+    "python": ">=3.11",
+    "cli": ["typer"],
+    "config": ["pydantic>=2", "pydantic-settings>=2"],
+    "llm_provider": ["litellm"],
+    "networking": ["httpx", "websockets", "websocket-client"],
+    "logging_ui": ["loguru", "rich"],
+    "scheduler": ["croniter"],
+    "channels": ["python-telegram-bot", "lark-oapi"],
+    "bridge": {
+      "language": "TypeScript (Node.js)",
+      "location": "bridge/src"
+    }
+  },
+  "entrypoints": [
+    {
+      "type": "python_cli",
+      "command": "nanobot",
+      "script": "nanobot.cli.commands:app",
+      "source": "pyproject.toml"
+    },
+    {
+      "type": "python_module",
+      "command": "python -m nanobot",
+      "source": "nanobot/__main__.py"
+    },
+    {
+      "type": "node_bridge",
+      "command": "bridge (WhatsApp WebSocket server)",
+      "source": "bridge/src/index.ts"
+    }
+  ],
+  "module_map": [
+    {
+      "name": "agent",
+      "responsibility": "Perceive-Think-Act loop, context building, tools/skills, subagent",
+      "paths": ["nanobot/agent/loop.py", "nanobot/agent/context.py", "nanobot/agent/tools"]
+    },
+    {
+      "name": "bus",
+      "responsibility": "Inbound/outbound events & async queue to decouple channels and agent",
+      "paths": ["nanobot/bus/events.py", "nanobot/bus/queue.py"]
+    },
+    {
+      "name": "channels",
+      "responsibility": "Telegram/Discord/Feishu/WhatsApp integrations + channel manager",
+      "paths": ["nanobot/channels/base.py", "nanobot/channels/manager.py"]
+    },
+    {
+      "name": "config",
+      "responsibility": "Config schema & loader (camelCase↔snake_case)",
+      "paths": ["nanobot/config/schema.py", "nanobot/config/loader.py"]
+    },
+    {
+      "name": "providers",
+      "responsibility": "LLM provider abstraction via LiteLLM; transcription support",
+      "paths": ["nanobot/providers/litellm_provider.py", "nanobot/providers/transcription.py"]
+    },
+    {
+      "name": "cron",
+      "responsibility": "Scheduled jobs and triggers",
+      "paths": ["nanobot/cron/service.py", "nanobot/cron/types.py"]
+    },
+    {
+      "name": "heartbeat",
+      "responsibility": "Periodic health checks / keep-alive",
+      "paths": ["nanobot/heartbeat/service.py"]
+    },
+    {
+      "name": "session",
+      "responsibility": "Conversation history persistence and retrieval",
+      "paths": ["nanobot/session/manager.py"]
+    },
+    {
+      "name": "skills",
+      "responsibility": "Built-in skill docs and scripts (markdown + shell)",
+      "paths": ["nanobot/skills/README.md", "nanobot/skills/*/SKILL.md"]
+    },
+    {
+      "name": "bridge",
+      "responsibility": "WhatsApp Node.js bridge used by Python channel via WebSocket",
+      "paths": ["bridge/src/server.ts", "nanobot/channels/whatsapp.py"]
+    }
+  ],
+  "key_flows": [
+    {
+      "name": "channel_to_agent_to_channel",
+      "steps": [
+        "Channel receives message and pushes to bus inbound queue",
+        "AgentLoop consumes inbound, builds context, calls LLM",
+        "Agent executes tool_calls iteratively (bounded by max_tool_iterations)",
+        "Agent pushes reply to outbound queue",
+        "ChannelManager dispatches outbound to the originating channel"
+      ]
+    },
+    {
+      "name": "cli_direct_chat",
+      "steps": ["CLI 'nanobot agent' calls AgentLoop.process_direct and prints result"]
+    },
+    {
+      "name": "gateway_daemon",
+      "steps": [
+        "CLI 'nanobot gateway' starts channels",
+        "Starts cron and heartbeat services",
+        "Runs agent loop for inbound messages continuously"
+      ]
+    },
+    {
+      "name": "whatsapp_bridge",
+      "steps": [
+        "Node bridge runs a WebSocket server",
+        "Python WhatsAppChannel connects via WebSocket and converts bridge events to inbound/outbound messages"
+      ]
+    }
+  ],
+  "highlights": [
+    "Ultra-lightweight, readable agent implementation (core loop + tool iteration)",
+    "Bus/queue decoupling between channels and agent core",
+    "Skills summary + on-demand loading to reduce context size",
+    "LiteLLM-based multi-provider support",
+    "WhatsApp implemented via Node bridge to avoid protocol complexity in Python"
+  ],
+  "context_estimation": {
+    "token_usage": "low",
+    "reason": "84 files total; core Python files are small; analysis mainly uses structure and entrypoints"
+  },
+  "scheme": "TRAE",
+  "subagents": [
+    {
+      "name": "structure_overview",
+      "task": "补全仓库结构、入口、运行形态与依赖关系图",
+      "boundary": "不做全量读代码；以元数据+关键入口文件为主",
+      "prior_knowledge": "nanobot 是超轻量个人AI助手；核心为 agent loop；支持多渠道与本地模型"
+    },
+    {
+      "name": "agent_core",
+      "task": "细读 AgentLoop/ContextBuilder：消息如何变成 tool_calls，如何收敛与防循环",
+      "boundary": "只读 agent/loop.py 与 agent/context.py 等少量关键文件",
+      "prior_knowledge": "Perceive-Think-Act-Loop；工具迭代有 max_tool_iterations 上限"
+    },
+    {
+      "name": "tools_and_skills",
+      "task": "分析工具注册/权限边界/技能加载策略，评估安全与可扩展性",
+      "boundary": "只读 agent/tools/* 与 agent/skills.py；不展开第三方库内部",
+      "prior_knowledge": "restrict_to_workspace 等安全开关；skills 采用摘要+按需加载"
+    },
+    {
+      "name": "channels_and_bus",
+      "task": "分析 bus 与 channel 解耦设计：inbound/outbound 的事件模型与并发模型",
+      "boundary": "只读 bus/* 与 channels/*；不做运行态抓包",
+      "prior_knowledge": "Channel 收/发与 Agent 推理分离，靠队列连接"
+    },
+    {
+      "name": "whatsapp_bridge",
+      "task": "分析 Node bridge↔Python 通讯协议与故障恢复点",
+      "boundary": "只读 bridge/src/* 与 channels/whatsapp.py",
+      "prior_knowledge": "WhatsApp 采用 WebSocket 桥接"
+    },
+    {
+      "name": "ops_deploy",
+      "task": "分析 Dockerfile/SECURITY/测试脚本，梳理部署与安全基线",
+      "boundary": "以文档与配置为主；只读少量相关实现",
+      "prior_knowledge": "项目提供 Docker 支持与安全加固说明"
+    }
+  ],
+  "external_sources": [
+    "https://github.com/HKUDS/nanobot",
+    "https://github.com/WangyiNTU/nanobot-study"
+  ]
+}
+

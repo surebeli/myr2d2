@@ -1,0 +1,35 @@
+{
+  "scheme": "generic",
+  "projectName": "openclaw",
+  "root": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw",
+  "out": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/openclaw",
+  "primaryGoal": "learn",
+  "capabilities": {
+    "can_list_dir": true,
+    "can_search_code": true,
+    "can_read_files": true,
+    "can_run_commands": true,
+    "can_web_search": false
+  },
+  "subagents": [
+    {
+      "name": "structure_overview",
+      "task": "结构层与入口点",
+      "boundary": "只读 ROOT 内文件；结论仅引用 ROOT/OUT 下 file:/// 证据",
+      "prior_knowledge": ""
+    },
+    {
+      "name": "core_loop",
+      "task": "核心执行路径与不变量",
+      "boundary": "只读 ROOT 内关键文件；输出主链路与不变量清单",
+      "prior_knowledge": ""
+    },
+    {
+      "name": "security_and_ops",
+      "task": "风险层与运维视角缺口",
+      "boundary": "只读 ROOT 内入口/配置/安全相关文件；输出 P0/P1/P2 风险与验证清单",
+      "prior_knowledge": ""
+    }
+  ]
+}
+

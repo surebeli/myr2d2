@@ -1,0 +1,127 @@
+{
+  "scheme": "openclaw.analysis.summary.v1",
+  "projectName": "openclaw",
+  "root": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw",
+  "out": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/openclaw",
+  "primaryGoal": "learn",
+  "generatedAt": "2026-02-09",
+  "scan": {
+    "method": "filesystem walk (excluding common build/vendor dirs)",
+    "excludedPathParts": [
+      "/.git/",
+      "/node_modules/",
+      "/dist/",
+      "/build/",
+      "/.build/",
+      "/DerivedData/",
+      "/Pods/",
+      "/vendor/",
+      "/.next/",
+      "/.cache/"
+    ],
+    "filesTotal": 4870,
+    "topExtensions": [
+      { "ext": ".ts", "count": 3185 },
+      { "ext": ".md", "count": 755 },
+      { "ext": ".swift", "count": 438 },
+      { "ext": ".json", "count": 82 },
+      { "ext": ".prose", "count": 64 },
+      { "ext": ".kt", "count": 63 },
+      { "ext": ".png", "count": 55 },
+      { "ext": ".sh", "count": 46 },
+      { "ext": "<noext>", "count": 28 },
+      { "ext": ".yml", "count": 18 },
+      { "ext": ".css", "count": 13 },
+      { "ext": ".go", "count": 13 },
+      { "ext": ".jpg", "count": 12 },
+      { "ext": ".js", "count": 10 },
+      { "ext": ".xml", "count": 10 },
+      { "ext": ".py", "count": 10 },
+      { "ext": ".yaml", "count": 8 },
+      { "ext": ".mjs", "count": 7 },
+      { "ext": ".svg", "count": 6 },
+      { "ext": ".mdx", "count": 6 }
+    ],
+    "largestFilesByBytes": [
+      {
+        "bytes": 1884490,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/apps/macos/Sources/OpenClaw/Resources/OpenClaw.icns"
+      },
+      {
+        "bytes": 1413716,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/README-header.png"
+      },
+      {
+        "bytes": 1393705,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/apps/macos/Icon.icon/Assets/openclaw-mac.png"
+      },
+      {
+        "bytes": 1393705,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/apps/ios/Sources/Assets.xcassets/AppIcon.appiconset/icon-1024.png"
+      },
+      {
+        "bytes": 1254626,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/docs/assets/showcase/oura-health.png"
+      },
+      {
+        "bytes": 1013735,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/assets/dmg-background.png"
+      },
+      {
+        "bytes": 817148,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/docs/assets/showcase/snag.png"
+      },
+      {
+        "bytes": 577295,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/docs/.i18n/zh-CN.tm.jsonl"
+      },
+      {
+        "bytes": 369114,
+        "path": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/pnpm-lock.yaml"
+      }
+    ]
+  },
+  "entrypoints": {
+    "cli": {
+      "bin": "openclaw",
+      "binDefinition": "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/package.json#L8-L10",
+      "bootstrap": "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/openclaw.mjs#L1-L14",
+      "sourceEntry": "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/entry.ts#L148-L170",
+      "runCli": "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/cli/run-main.ts#L27-L72"
+    },
+    "gateway": {
+      "gatewayCli": "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/cli/gateway-cli/run.ts#L161-L308",
+      "startGatewayServer": "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/gateway/server.impl.ts#L155-L353"
+    }
+  },
+  "keyModules": [
+    {
+      "name": "config",
+      "primaryFiles": [
+        "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/config/io.ts#L203-L320",
+        "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/config/paths.ts#L44-L104"
+      ]
+    },
+    {
+      "name": "gateway-auth-and-net",
+      "primaryFiles": [
+        "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/gateway/auth.ts#L1-L40",
+        "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/gateway/net.ts#L74-L96"
+      ]
+    },
+    {
+      "name": "plugins",
+      "primaryFiles": [
+        "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/plugins/cli.ts#L11-L58",
+        "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/gateway/server-plugins.ts#L5-L49"
+      ]
+    },
+    {
+      "name": "sandbox",
+      "primaryFiles": [
+        "file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/sandbox/docker.ts#L125-L245"
+      ]
+    }
+  ]
+}
+

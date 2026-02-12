@@ -1,0 +1,10 @@
+.DS_Store
+
+.trae/
+
+src/node_modules/
+src/dist/
+
+**/node_modules/
+**/dist/
+

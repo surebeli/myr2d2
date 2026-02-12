@@ -1,0 +1,109 @@
+{
+  "project": {
+    "name": "mynanobot (nanobot-ai)",
+    "root": "/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot"
+  },
+  "reports": [
+    {
+      "id": "structure_overview",
+      "file": "01-structure_overview.md",
+      "focus": ["module boundaries", "entrypoints", "runtime modes", "config/workspace model"],
+      "key_files": [
+        "nanobot/cli/commands.py",
+        "nanobot/agent/loop.py",
+        "nanobot/agent/context.py",
+        "nanobot/bus/events.py",
+        "nanobot/bus/queue.py",
+        "nanobot/channels/manager.py",
+        "bridge/src/index.ts"
+      ]
+    },
+    {
+      "id": "agent_core",
+      "file": "02-agent_core.md",
+      "focus": ["LLM-tool iteration", "message schema", "session/history", "system subagent routing"],
+      "key_findings": [
+        "max_tool_iterations bounds LLM→tool_calls loop (default 20)",
+        "OpenAI-compatible tool_calls schema; tool arguments are JSON strings",
+        "system messages route back via chat_id encoded as origin_channel:origin_chat_id"
+      ],
+      "key_files": ["nanobot/agent/loop.py", "nanobot/agent/context.py", "nanobot/agent/subagent.py"]
+    },
+    {
+      "id": "tools_and_skills",
+      "file": "03-tools_and_skills.md",
+      "focus": ["tool registry", "parameter validation", "workspace restriction", "skills discovery/loading", "security implications"],
+      "key_findings": [
+        "ToolRegistry validates then executes; execution errors are returned as strings",
+        "Validation ignores unknown fields (by design, tested)",
+        "filesystem allowed_dir uses startswith prefix check (possible false-allow on shared prefixes)",
+        "web_fetch validates scheme/netloc but does not block localhost/internal targets (SSRF surface)",
+        "skills support workspace override + requirements filtering + summary injection"
+      ],
+      "key_files": [
+        "nanobot/agent/tools/registry.py",
+        "nanobot/agent/tools/base.py",
+        "nanobot/agent/tools/filesystem.py",
+        "nanobot/agent/tools/shell.py",
+        "nanobot/agent/tools/web.py",
+        "nanobot/agent/skills.py",
+        "nanobot/agent/memory.py",
+        "tests/test_tool_validation.py"
+      ]
+    },
+    {
+      "id": "channels_and_bus",
+      "file": "04-channels_and_bus.md",
+      "focus": ["event model", "async concurrency", "routing keys", "failure handling"],
+      "key_findings": [
+        "Bus uses inbound/outbound asyncio queues; channels and agent are decoupled",
+        "AgentLoop processes inbound serially; channels run concurrently as tasks",
+        "Outbound routing based on OutboundMessage.channel mapping in ChannelManager"
+      ],
+      "key_files": [
+        "nanobot/bus/events.py",
+        "nanobot/bus/queue.py",
+        "nanobot/channels/base.py",
+        "nanobot/channels/manager.py",
+        "nanobot/cli/commands.py"
+      ]
+    },
+    {
+      "id": "whatsapp_bridge",
+      "file": "05-whatsapp_bridge.md",
+      "focus": ["WS protocol", "lifecycle", "reconnect strategy", "reliability risks"],
+      "key_findings": [
+        "Bridge broadcasts Baileys events to all WS clients",
+        "No offline queue/replay; messages can be lost while Python disconnected",
+        "Python does not consume 'sent' acks; send success is not observable end-to-end",
+        "No explicit app-level heartbeat; relies on transport behavior"
+      ],
+      "key_files": [
+        "bridge/src/index.ts",
+        "bridge/src/server.ts",
+        "bridge/src/whatsapp.ts",
+        "nanobot/channels/whatsapp.py"
+      ]
+    },
+    {
+      "id": "ops_deploy",
+      "file": "06-ops_deploy.md",
+      "focus": ["Docker image", "security posture", "cron/heartbeat runtime behavior", "test coverage gaps"],
+      "key_findings": [
+        "Docker image bundles Python app + Node 20 for bridge; default ENTRYPOINT nanobot",
+        "SECURITY.md recommends non-root + allowFrom; Dockerfile currently creates /root/.nanobot and does not switch user",
+        "Tests cover tool validation and a Docker smoke script only; critical security boundaries lack tests"
+      ],
+      "key_files": [
+        "Dockerfile",
+        "SECURITY.md",
+        "tests/test_docker.sh",
+        "tests/test_tool_validation.py",
+        "nanobot/config/loader.py",
+        "nanobot/cron/service.py",
+        "nanobot/heartbeat/service.py"
+      ]
+    }
+  ]
+}
+
