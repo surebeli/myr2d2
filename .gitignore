@@ -2,8 +2,6 @@
 
 .trae/
 
-LocalModelMacOS/
-
 **/node_modules/
 **/dist/
 **/build/

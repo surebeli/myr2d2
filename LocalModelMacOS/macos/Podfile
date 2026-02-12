@@ -1,0 +1,67 @@
+require_relative '../node_modules/react-native-macos/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+prepare_react_native_project!
+
+target 'LocalModelMacOS-macOS' do
+  platform :macos, '10.15'
+  use_native_modules!
+
+  # Flags change depending on the env values.
+  flags = get_default_flags()
+
+  use_react_native!(
+    :path => '../node_modules/react-native-macos',
+    :hermes_enabled => false,
+    :fabric_enabled => ENV['RCT_NEW_ARCH_ENABLED'] == '1',
+    # Flipper is not compatible w/ macOS
+    :flipper_configuration => FlipperConfiguration.disabled,
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    react_native_post_install(installer)
+
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.15'
+        
+        # Aggressively fix OS_OBJECT_USE_OBJC
+        ['GCC_PREPROCESSOR_DEFINITIONS', 'OTHER_CFLAGS'].each do |key|
+            if config.build_settings[key]
+                val = config.build_settings[key]
+                if val.is_a?(String)
+                    config.build_settings[key] = val.gsub('OS_OBJECT_USE_OBJC=0', 'OS_OBJECT_USE_OBJC=1')
+                elsif val.is_a?(Array)
+                    val.map! { |d| d.include?('OS_OBJECT_USE_OBJC=0') ? d.gsub('OS_OBJECT_USE_OBJC=0', 'OS_OBJECT_USE_OBJC=1') : d }
+                end
+            end
+        end
+        
+        # Also ensure we have it set to 1 if it wasn't there (for good measure)
+        # But simply removing 0 is usually enough as 1 is default.
+        # Let's force it in GCC_PREPROCESSOR_DEFINITIONS just in case.
+        defs = config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] || ['$(inherited)']
+        if defs.is_a?(Array)
+             unless defs.any? { |d| d.include?('OS_OBJECT_USE_OBJC=1') }
+                 defs << 'OS_OBJECT_USE_OBJC=1'
+             end
+             config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] = defs
+        end
+      end
+
+      # Also check per-file COMPILER_FLAGS which might override target settings
+       if target.respond_to?(:source_build_phase)
+         target.source_build_phase.files.each do |file|
+           if file.settings && file.settings['COMPILER_FLAGS']
+              flags = file.settings['COMPILER_FLAGS']
+              if flags.include?('OS_OBJECT_USE_OBJC=0')
+                 file.settings['COMPILER_FLAGS'] = flags.gsub('OS_OBJECT_USE_OBJC=0', 'OS_OBJECT_USE_OBJC=1')
+              end
+           end
+         end
+       end
+     end
+   end
+end
