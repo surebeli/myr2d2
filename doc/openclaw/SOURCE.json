@@ -1,0 +1,8 @@
+{
+  "docPath": "doc/openclaw",
+  "submodulePath": "thirdparty/myopenclaw",
+  "submoduleUrl": "https://github.com/surebeli/myopenclaw",
+  "sourceCommit": "4c86010b0620a1a689bef2e47c7f1b2b00891aa9",
+  "previousSourceCommit": "aaddbdae52d71bff3a74fa28dd6597816e2d7592",
+  "notes": "本环境无法访问 github.com:443，submodule 仅快进到本地 origin/main 可见提交。"
+}

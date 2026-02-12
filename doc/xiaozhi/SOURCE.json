@@ -1,0 +1,8 @@
+{
+  "docPath": "doc/xiaozhi",
+  "submodulePath": "thirdparty/my-xiaozhi-esp32",
+  "submoduleUrl": "https://github.com/surebeli/my-xiaozhi-esp32",
+  "sourceCommit": "6be351b5a045e9d100ff4b37942752e8316f2d04",
+  "previousSourceCommit": "b4eada876a628e5aeacdaa6dfbff00f1b9872e79",
+  "notes": "本环境无法访问 github.com:443，submodule 仅快进到本地 origin/main 可见提交。"
+}

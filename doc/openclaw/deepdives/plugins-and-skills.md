@@ -39,10 +39,10 @@ OpenClaw 把扩展能力分成两类，分别解决不同层面的“可扩展�
 
 ### 3.1 Skills 的来源与优先级（可控覆盖）
 
-skills 从多个目录加载并合并，优先级明确：\n- extra < bundled < managed < workspace\n\n证据：[workspace.ts:L123-L170](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L123-L170)
+skills 从多个目录加载并合并，优先级明确：\n- extra < bundled < managed < `~/.agents/skills` < `<workspace>/.agents/skills` < workspace\n\n证据：[workspace.ts:L124-L188](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L124-L188)
 
 这相当于一个“可控的覆盖栈”：
-- bundled：随 OpenClaw 发布\n- managed：由 CLI 安装/管理\n- workspace：项目级（与机器人/业务绑定）\n- extra：外部目录（团队共享知识库等）
+- bundled：随 OpenClaw 发布\n- managed：由 CLI 安装/管理\n- `~/.agents/skills`：个人级共享技能（跨项目/跨 agent）\n- `<workspace>/.agents/skills`：项目级共享技能（跨 agent）\n- workspace：项目级（与机器人/业务绑定）\n- extra：外部目录（团队共享知识库等）
 
 ### 3.2 Skills 的载体：SKILL.md + frontmatter metadata
 
@@ -59,4 +59,3 @@ skill 的核心资产不是代码，而是：\n- 一份可被模型读取的能�
 ## 4) 亮点总结（适用于 myr2d2 的可复用点）
 
 - **Schema-first 插件加载**：把不确定性前移到启动期，减少运行期事故。\n- **Slots（memory 等）**：关键系统能力用“插槽”抽象，允许替换实现但保证对外工具接口稳定。\n- **Skills 覆盖栈**：bundled/managed/workspace/extra 的优先级设计，天然支持“平台默认 + 项目定制 + 临时覆盖”。\n- **技能可用性筛选**：把“缺依赖/不支持 OS/不允许模型调用”等问题在注入前解决，降低 agent 幻觉与失败率。\n- **插件携带技能桥接**：让系统扩展与认知扩展保持一致交付（装了插件就带上使用说明与策略）。
-

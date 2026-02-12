@@ -16,7 +16,7 @@
 - **nanobot/agent/**：认知核心（上下文构建 + LLM 调用 + tool_calls 迭代 + subagent）。核心 [loop.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/agent/loop.py)、[context.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/agent/context.py)。
 - **nanobot/agent/tools/**：工具集合（filesystem/shell/web/cron/spawn/message）。目录 [tools](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/agent/tools)。
 - **nanobot/bus/**：消息总线与事件定义（inbound/outbound queue）。[events.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/bus/events.py)、[queue.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/bus/queue.py)。
-- **nanobot/channels/**：渠道适配与 ChannelManager（Telegram/Discord/Feishu/WhatsApp）。[base.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/channels/base.py)、[manager.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/channels/manager.py)。
+- **nanobot/channels/**：渠道适配与 ChannelManager（Telegram/Discord/Feishu/WhatsApp/Slack/Email/DingTalk/MoChat/QQ 等，以仓库实现为准）。[base.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/channels/base.py)、[manager.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/channels/manager.py)。
 - **nanobot/providers/**：LLM Provider 接入（LiteLLM）。[litellm_provider.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/providers/litellm_provider.py)。
 - **nanobot/config/**：配置 schema 与 loader（camelCase↔snake_case）。[schema.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/config/schema.py)、[loader.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/config/loader.py)。
 - **nanobot/session/**：会话历史持久化（JSONL）。[manager.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/session/manager.py)。
@@ -41,7 +41,7 @@
 ## 核心数据流（结构级）
 
 ```text
-Inbound (Telegram/Discord/Feishu/WhatsApp)               Outbound
+Inbound (Telegram/Discord/Feishu/WhatsApp/Slack/Email/DingTalk/MoChat/QQ/...)               Outbound
 ┌──────────┐   publish_inbound   ┌─────────────┐   publish_outbound   ┌──────────────┐
 │ Channel  ├────────────────────►│  MessageBus  ├────────────────────►│ ChannelManager│
 └────┬─────┘                     │ (in/out queue│                      └─────┬────────┘
@@ -69,4 +69,3 @@ Inbound (Telegram/Discord/Feishu/WhatsApp)               Outbound
   - 支持旧字段迁移（`tools.exec.restrictToWorkspace → tools.restrictToWorkspace`）。见 [_migrate_config](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/config/loader.py#L65-L72)。
   - camelCase 与 snake_case 双向转换，适配 Pydantic schema（[convert_keys / convert_to_camel](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/config/loader.py#L75-L90)）。
 - 工作区模板文件（作为系统提示词基座）位于仓库样例 [workspace/](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/workspace)；实际运行时由 onboard 写到用户目录工作区并被 [ContextBuilder.build_system_prompt](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/agent/context.py#L21-L71) 读取。
-

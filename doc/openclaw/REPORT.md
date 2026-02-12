@@ -5,6 +5,15 @@
 - OUT：`/Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/openclaw`
 - PRIMARY_GOAL：learn
 
+## 0. 同步信息（Doc ↔ Submodule）
+
+- 本文档的源码基线由 [SOURCE.json](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/openclaw/SOURCE.json) 管理。
+- 本次更新将 submodule 从 `aaddbdae52d71bff3a74fa28dd6597816e2d7592` 快进到 `4c86010b0620a1a689bef2e47c7f1b2b00891aa9`（heads/main）。
+- 变更摘要（用于快速定位需要复核的文档段落）：
+  - hooks：移除 bundled `soul-evil` hook（影响安全/运维与 hooks 相关叙述）。
+  - skills：新增/强化跨 agent 的 skills 发现路径（`.agents/skills/` 目录）。
+  - gateway：提升 WebSocket payload 上限（图片上传场景）。
+
 ## 1. 结构层（Structure）
 
 ### 1.1 规模与语言分布（概览）
@@ -100,4 +109,3 @@
 ### 3.3 测试覆盖缺口（证据化）
 
 - 单元测试覆盖阈值与覆盖范围主要针对 `src/**/*.ts`，并排除 `dist/**` 与 `apps/macos/**` 等目录。证据：[package.json](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/package.json#L218-L248)。
-

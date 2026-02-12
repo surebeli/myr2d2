@@ -54,5 +54,4 @@ XiaoZhi 允许设备主动发 notifications（JSON-RPC 无 `id`）。证据：[m
 ## 6) 音频/视频流：控制面与数据面分离（推荐）
 
 原因：Gateway WS 更适合作为控制面（命令、状态、审计），而音视频是高吞吐数据面。\n- 控制面：node.invoke / node.event（命令与状态）\n- 数据面：沿用 XiaoZhi 的 WebSocket/MQTT+UDP（或升级为 WebRTC），Gateway 仅分发“开始/停止/参数变更”命令
-\n该选择与 XiaoZhi “WebSocket/MQTT 实现完整，UDP 加密增强安全性”的结论一致。证据：[analysis_report_my_xiaozhi_esp32.md:L131-L133](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/xiaozhi/analysis_report_my_xiaozhi_esp32.md#L131-L133)
-
+\n该选择与 XiaoZhi “WebSocket/MQTT 实现完整，UDP 加密增强安全性”的结论一致。证据：[analysis_report_my_xiaozhi_esp32.md:L137](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/xiaozhi/analysis_report_my_xiaozhi_esp32.md#L137)

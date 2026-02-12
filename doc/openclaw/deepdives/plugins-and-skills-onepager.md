@@ -6,6 +6,7 @@
 
 - Plugins 是“系统级扩展”：进程内加载，可注册 gateway methods / HTTP routes / channels / providers / hooks。证据：[registry.ts:L265-L285](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/plugins/registry.ts#L265-L285)
 - Skills 是“认知级扩展”：以 `SKILL.md` + frontmatter metadata 为载体，多来源覆盖栈，按可用性筛选后注入 prompt。证据：[workspace.ts:L123-L170](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L123-L170)、[workspace.ts:L204-L214](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L204-L214)
+- Skills 额外支持跨项目/跨 agent 的“统一技能目录”：`~/.agents/skills`（个人级）与 `<workspace>/.agents/skills`（项目级），且优先级介于 managed 与 workspace 之间。证据：[workspace.ts:L154-L187](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L154-L187)
 - 插件加载是 schema-first：缺 `configSchema` 直接 fail-fast，减少运行期事故。证据：[loader.ts:L280-L292](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/plugins/loader.ts#L280-L292)
 
 ## 分层：什么时候用 Plugin，什么时候用 Skill
@@ -26,7 +27,7 @@ flowchart TB
 
 ## Skills：覆盖栈与可用性筛选（为什么“可控注入”）
 
-- 来源优先级：extra < bundled < managed < workspace（项目级可覆盖平台默认）。证据：[workspace.ts:L158-L170](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L158-L170)
+- 来源优先级：extra < bundled < managed < `~/.agents/skills` < `<workspace>/.agents/skills` < workspace。证据：[workspace.ts:L124-L188](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L124-L188)
 - 注入前过滤：不满足依赖/策略的技能不会进入 prompt（减少模型幻觉）。证据：[workspace.ts:L204-L214](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L204-L214)
 - 插件携带技能目录会被并入 skills 搜索路径（装了插件就带上“使用说明与策略”）。证据：[workspace.ts:L130-L135](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/skills/workspace.ts#L130-L135)
 
@@ -41,4 +42,3 @@ flowchart TB
 ## 延伸阅读
 
 - 深挖版：[plugins-and-skills.md](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/openclaw/deepdives/plugins-and-skills.md)
-

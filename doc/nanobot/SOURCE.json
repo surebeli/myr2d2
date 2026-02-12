@@ -1,0 +1,8 @@
+{
+  "docPath": "doc/nanobot",
+  "submodulePath": "thirdparty/mynanobot",
+  "submoduleUrl": "https://github.com/surebeli/mynanobot",
+  "sourceCommit": "890d7cf85327c13500be5ed13db70f87a4e91243",
+  "previousSourceCommit": "18ec651b34907e57af82d9d3ddc6ddf39d106c2a",
+  "notes": "本环境无法访问 github.com:443，submodule 仅快进到本地 origin/main 可见提交。"
+}

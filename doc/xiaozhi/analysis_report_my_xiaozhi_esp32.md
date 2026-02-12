@@ -1,5 +1,10 @@
 # 大局规划报告：XiaoZhi ESP32 (小智)
 
+## 0. 同步信息（Doc ↔ Submodule）
+
+- 本文档的源码基线由 [SOURCE.json](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/xiaozhi/SOURCE.json) 管理。
+- 本次更新将 submodule 从 `b4eada876a628e5aeacdaa6dfbff00f1b9872e79` 快进到 `6be351b5a045e9d100ff4b37942752e8316f2d04`（heads/main）。
+
 ## 1. 外部基础知识概要
 **项目名称**：XiaoZhi ESP32 (小智 AI 聊天机器人)
 **核心目的**：基于 ESP32 的开源 AI 语音助手，通过 WebSocket/MQTT 连接云端大模型 (Qwen, DeepSeek)，实现语音交互与设备控制。
@@ -147,3 +152,7 @@ my-xiaozhi-esp32/
 1.  **CI 增强**：建立自动化编译矩阵，确保修改核心代码后，主流的 10+ 种 Board 配置都能编译通过。
 2.  **内存优化**：针对 ESP32-C3，裁剪 LVGL 功能或优化 Opus 缓冲策略。
 
+### 8.6 最近上游变更摘要（基于本次 submodule 更新）
+1.  **UI 初始化一致性增强**：多个开发板的 UI 初始化与设置逻辑做了统一与修复，减少“板卡差异导致的显示异常”概率。
+2.  **灯带能力增强**：`CircularStrip` 增加多色设置能力并调整构造参数类型，利于表达更丰富的灯效。
+3.  **音频与启动体验微调**：部分音频初始化/提示音触发时机调整，避免启动阶段的异常或割裂体验。

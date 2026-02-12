@@ -3,6 +3,15 @@
 输入仓库：`/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/`  
 输出目录：`/Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/nanobot`
 
+## 0. 同步信息（Doc ↔ Submodule）
+
+- 本文档的源码基线由 [SOURCE.json](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/nanobot/SOURCE.json) 管理。
+- 本次更新将 submodule 从 `18ec651b34907e57af82d9d3ddc6ddf39d106c2a` 快进到 `890d7cf85327c13500be5ed13db70f87a4e91243`（heads/main）。
+- 变更摘要（用于快速定位需要复核的文档段落）：
+  - memory：重构为两层记忆（`MEMORY.md` + `HISTORY.md`）。
+  - channels：新增/补齐多种渠道实现（Email/DingTalk/MoChat/QQ/Slack 等）。
+  - tools/subagent：补齐 `edit_file` 工具，并为子代理补充时间上下文。
+
 ## 1. 环境与方案
 
 - **环境检测结果**：当前在 **Trae IDE（macOS）** 环境中运行，具备本地代码检索、文件读取、命令执行与并行子任务能力。
@@ -19,15 +28,15 @@
 ## 3. 仓库概述
 
 - **规模（本地统计）**
-  - 文件总数：84
-  - Python 文件：46
+  - 文件总数：92
+  - Python 文件：54
   - 主要大文件为演示 GIF/PNG；核心代码集中在 `nanobot/`（单文件最大约 20KB）
 - **技术栈**
   - Python：`>=3.11`（[pyproject.toml](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/pyproject.toml#L1-L33)）
   - CLI：Typer（`nanobot` 命令入口，[pyproject.toml](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/pyproject.toml#L42-L44) → [commands.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/cli/commands.py)）
   - LLM Provider：LiteLLM 统一适配（[litellm_provider.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/providers/litellm_provider.py)）
   - 配置：Pydantic v2 / pydantic-settings（[schema.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/config/schema.py)）
-  - 通道/网络：python-telegram-bot、Discord/飞书 SDK、websocket/websockets、httpx
+  - 通道/网络：python-telegram-bot、Discord/飞书 SDK、websocket/websockets、httpx，及更多渠道实现（如 Email/Slack/DingTalk/MoChat/QQ）
   - WhatsApp：Node.js TypeScript bridge（`bridge/`）
 - **核心定位（从源码结构推断）**
   - 一个“可部署的轻量 agent 服务”：支持 CLI 单次对话，也支持 gateway 常驻运行（通道 + cron + heartbeat）。
@@ -48,7 +57,7 @@ mynanobot/
 ├── nanobot/                   # Python 主包
 │   ├── agent/                 # 推理循环 + 上下文 + 工具/技能/子代理
 │   ├── bus/                   # inbound/outbound 事件与队列
-│   ├── channels/              # Telegram/Discord/Feishu/WhatsApp
+│   ├── channels/              # Telegram/Discord/Feishu/WhatsApp/Slack/Email/DingTalk/MoChat/QQ/...
 │   ├── cli/                   # Typer CLI
 │   ├── config/                # 配置 schema/loader
 │   ├── cron/                  # 定时任务

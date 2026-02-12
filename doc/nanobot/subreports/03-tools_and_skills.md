@@ -67,6 +67,7 @@
 
 ## 记忆（Memory）落盘位置
 
-- 长期记忆：`{workspace}/memory/MEMORY.md`；当日笔记：`{workspace}/memory/YYYY-MM-DD.md`（[memory.py:L16-L23](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/agent/memory.py#L16-L23)）。
-- `get_memory_context()` 会把长期 + 当日合并到 prompt（[memory.py:L90-L109](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/agent/memory.py#L90-L109)）。
-
+- 当前采用“两层记忆”：
+  - 长期记忆：`{workspace}/memory/MEMORY.md`
+  - 可检索历史：`{workspace}/memory/HISTORY.md`（按段落追加，便于 grep 检索）
+- 入口实现为 `MemoryStore`（[memory.py](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot/nanobot/agent/memory.py)），`get_memory_context()` 目前仅注入长期记忆内容到系统提示词上下文。
