@@ -10,6 +10,12 @@
 **/Pods/
 **/.bundle/
 
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/.pytest_cache/
+**/.venv/
+
 **/*.keystore
 **/*.jks
 **/*.p12
