@@ -1,0 +1,9 @@
+flowchart LR
+  Extra[extraDirs] --> Bundled[bundled]
+  Bundled --> Managed[managed]
+  Managed --> Personal[~/.agents/skills]
+  Personal --> Project[<workspace>/.agents/skills]
+  Project --> Workspace[workspace/skills]
+
+  note[Higher precedence overrides lower] --- Workspace
+

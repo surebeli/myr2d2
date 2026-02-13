@@ -105,6 +105,16 @@ my-xiaozhi-esp32/
 - **Protocol_Agent**: [查看详细报告](analysis/protocol_analysis.md) - 已完成 MCP Server、WebSocket 及 MQTT+UDP 协议的深度分析。
 - **Hardware_Driver_Agent**: [查看详细报告](analysis/hardware_driver_analysis.md) - 已完成硬件抽象层、音频链路及显示系统的深度分析。
 
+## 7. 架构图与流程图（drawio-mcp）
+
+- 图源目录：`doc/xiaozhi/diagrams/`（`.mmd` 源文件 + `links.json`）
+- 架构图：
+  - 源文件：[xiaozhi-architecture.mmd](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/xiaozhi/diagrams/xiaozhi-architecture.mmd)
+  - 打开编辑器：https://app.diagrams.net/?grid=0&pv=0&border=10&edit=_blank#create=%7B%22type%22%3A%22mermaid%22%2C%22compressed%22%3Atrue%2C%22data%22%3A%22jVPbboMwDP0apPJQKcrUD4BCtwe6dYWt097SkI2siCAunfb3s0m5FLIOCTlxfOw4x4ePVH3zhBWVRUmwt4gDK3xlffwsWJ7A1hNnyYW1cv1wd0f7A0oWb5Kp90Ta1srrMvW3lXyxAGPbo8CBnbBWs4Cnirg534CF%2BstwP63l5DlkgE0lZ5VUWXPsdp2EFavElvFEZsLQyXoH2WgpCUVxFsUU42ccME95XWpHxYZCnhiAwEFQ28guZT9Hxk%2BGLFnmEITM4PU%2BGB6Mka5iQMbK1SslD04wBIksxr1hQI%2BigrSoYFmZq6Iqp6UPIVIujqHiJwRPOHqOIiQJF0rWKqsKlU5hLx5SiRaGUsdSoQYcP7Tn9blOVY0P1KueBozP0K%2BDMnAdkxiCYItcoh2Hogif2dg%2F2wFJgl0urTu%2FFWPvotBaIO77CMrHHGnHaY7qWQ7uvw6j7toI7psIJezCbddmOAeFczHdRAm%2FDJRuvsrm7zEUngNv9DG4AtKvexkn6El33Gt53b7jOkVrzfjcDti9AOTSh1EhvYeiGEBbBf7H9k3che8pcA7d8xLGhI%2BkJ7gO%2FgI%3D%22%7D
+- 协议与音频链路流程图：
+  - 源文件：[xiaozhi-protocol-flows.mmd](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/xiaozhi/diagrams/xiaozhi-protocol-flows.mmd)
+  - 打开编辑器：https://app.diagrams.net/?grid=0&pv=0&border=10&edit=_blank#create=%7B%22type%22%3A%22mermaid%22%2C%22compressed%22%3Atrue%2C%22data%22%3A%22rVRdb4IwFP01TfRB4zRbfEU%2BHhadbGh4ruXOEWrLStH479daYbYR5xKThpbLufec23tCBd81MAJBjrcC79DIQ%2BORWriWnNW7DYg2VGIhc5KXmEn1ttagSh%2BqTkzQYMIknox1APY5gQ502qBT2CScFKCDCYh9Z%2F1Fk7F4X63UNhO86ATHreBAH2PoRPoN0qe8ztTe85IPNI7mc0UYrVZJXyc2uesBmoRqBWiiIykuQG0HLrIWEtiQkBGeadCyrDXNp7p4qC5rYiqde0DhC%2FKmyHtC4TOa%2BWgatWCbIzUcPmcMyClzPFPPL6CU61Zek%2BVb38mlnJdqq6QAvMvZ1vl8leCsHddZzpsedP1NzrA4ugxmpecSvikRcXHAImur2CnAMifiD2wJahIXCtRo1JNwJgWnWslZoen%2FWtvpwJ7L%2F1pys%2F2WWXPpvEpiqQpEUqqy0XA4dEs4vgjg7AsjOab4uMGkaJOAVvBrdgMyZr7bHYub7ogubu%2BGT%2BqS5qzoGJvNFxs%2Bo7K52J4XJqcBE3EsJWTXzRI%2FyCyWhIwfmCX%2BbzWxM%2BfLXmzk4m5HqP8N3j3IFKbzkfcD%22%7D
+
 ## 8. 深度分析与优化建议 (Deep Analysis & Optimization)
 
 > 本节内容整合自全量代码扫描后的最终仓库报告。

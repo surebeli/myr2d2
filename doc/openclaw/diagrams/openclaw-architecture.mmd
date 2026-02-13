@@ -1,0 +1,58 @@
+flowchart TB
+  subgraph CLI[CLI]
+    Entry[openclaw (bin)]
+    RunCli[src/cli/run-main.ts]
+  end
+
+  subgraph Gateway[Gateway Control Plane]
+    GWStart[startGatewayServer()]
+    WS[WebSocket Server]
+    HTTP[HTTP Server]
+    Methods[Gateway Methods]
+    Broadcast[Broadcast]
+  end
+
+  subgraph Config[Config & State]
+    StateDir[~/.openclaw (stateDir)]
+    ConfigFile[openclaw.json (config)]
+    Sessions[sessions/logs/cache]
+  end
+
+  subgraph Ext[Extensibility]
+    Plugins[Plugins]
+    Skills[Skills]
+    AgentsDir[agents/<id>/agent]
+    Sandbox[Docker Sandbox]
+  end
+
+  subgraph Clients[Clients]
+    WebUI[Web UI]
+    ChannelClients[Channels (Telegram/Discord/...)]
+    Nodes[Nodes]
+  end
+
+  Entry --> RunCli
+  RunCli -->|gateway| GWStart
+  RunCli -->|other commands| RunCli
+
+  GWStart -->|loadConfig| ConfigFile
+  GWStart --> Plugins
+  Plugins --> Methods
+  Plugins --> Skills
+  Skills --> AgentsDir
+
+  GWStart --> WS
+  GWStart --> HTTP
+  WS --> Methods
+  Methods --> Broadcast
+
+  StateDir --> ConfigFile
+  StateDir --> Sessions
+  StateDir --> AgentsDir
+
+  WebUI -->|WS/HTTP| WS
+  ChannelClients -->|WS/HTTP| WS
+  Nodes -->|node.invoke/node.event| Methods
+
+  Sandbox --> AgentsDir
+

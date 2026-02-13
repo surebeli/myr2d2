@@ -1,0 +1,49 @@
+flowchart LR
+  subgraph Device[ESP32 Device (XiaoZhi)]
+    Mic((Mic))
+    Wake[Wake Word / ESP-SR]
+    App[Application + DeviceStateMachine]
+    MCP[MCP Server]
+    Enc[Opus Encode]
+    Dec[Opus Decode + Playback]
+    Display[LVGL Display]
+    Board[Board HAL]
+  end
+
+  subgraph Net[Transports]
+    WS[WebSocket]
+    MQTT[MQTT Control]
+    UDP[UDP Audio (AES)]
+  end
+
+  subgraph Cloud[Cloud Services]
+    ASR[ASR]
+    LLM[LLM]
+    TTS[TTS]
+  end
+
+  Mic --> Wake --> App
+  App --> MCP
+  App --> Display
+  App --> Board
+
+  App --> Enc
+  Enc -- audio --> WS
+  Enc -- audio --> UDP
+
+  App -- control/json --> WS
+  App -- control/json --> MQTT
+
+  WS -- audio/json --> Cloud
+  MQTT -- control/json --> Cloud
+  UDP -- audio --> Cloud
+
+  ASR --> LLM --> TTS
+
+  Cloud -- audio --> WS
+  Cloud -- audio --> UDP
+  Cloud -- control/json --> WS
+  Cloud -- control/json --> MQTT
+
+  App --> Dec
+

@@ -1,0 +1,25 @@
+sequenceDiagram
+  autonumber
+  participant U as User
+  participant CLI as openclaw CLI
+  participant CFG as loadConfig()
+  participant PL as Plugins
+  participant GW as Gateway Runtime
+  participant WS as WebSocket Server
+  participant C as Client (Web UI / Channel)
+
+  U->>CLI: openclaw gateway
+  CLI->>CFG: read config snapshot + validate
+  CFG-->>CLI: config
+  CLI->>PL: discover + load plugins
+  PL-->>CLI: gatewayHandlers + cliRegistrars
+  CLI->>GW: startGatewayServer(config, plugins)
+  GW->>WS: listen + accept connections
+
+  C->>WS: connect
+  WS-->>C: auth challenge / ready
+  C->>WS: method call (JSON)
+  WS->>GW: dispatch to method handler
+  GW-->>WS: result
+  WS-->>C: response
+

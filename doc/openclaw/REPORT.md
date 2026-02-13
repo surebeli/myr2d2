@@ -61,6 +61,16 @@
 - 网络并发：Gateway 同时维护 HTTP Server + `WebSocketServer({ noServer })`，并维护 WS clients 集合与广播器。证据：[server-runtime-state.ts](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/gateway/server-runtime-state.ts#L1-L80)。
 - 容器化：sandbox 通过 Docker 创建并启动常驻容器（`sleep infinity`），并按配置挂载 workspace。证据：[docker.ts](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/agents/sandbox/docker.ts#L208-L245)。
 
+### 1.7 架构图（drawio-mcp）
+
+- 图源目录：`doc/openclaw/diagrams/`（`.mmd` 源文件 + `links.json`）
+- 系统架构图：
+  - 源文件：[openclaw-architecture.mmd](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/openclaw/diagrams/openclaw-architecture.mmd)
+  - 打开编辑器：https://app.diagrams.net/?grid=0&pv=0&border=10&edit=_blank#create=%7B%22type%22%3A%22mermaid%22%2C%22compressed%22%3Atrue%2C%22data%22%3A%22jVRdb9sgFP01lrqHWJGrrc%2BNE3eVtimaU%2BUZ41ubhUBlnKR92W%2FfBYxhMa4iWebCPYf7zSuXF9qSrk%2By5W6VLB9xxU%2BdqqYjby2K%2BY%2Fn5OvK%2FNej3n4b0XcfqJRvICgnFzy6q5j4MkX%2BPomcM4SqjiZZQVHOiu4kFkfCRNqrkAGi1nLElSfSw4Voi05C9yQ6ITlKW04ETE0%2F7ctex4e29TowS%2BjO0N1FXN2XCN1DVUp6AJ0WC50Cv%2B92W4SaZR71E%2FpW1uo%2Fn8eza%2FCqk6SmRGlvA%2FmW3GAeXlmjK2UFrf%2Bm%2FerR7NSSOV4zdHj1F0uRhiVUgy6SHHt5wTgEZU%2F%2FKCk0kRpthFaCUkwKnQXlxKzgstELJbSF24LcvOvM4B%2BEYhXjrP%2BYGtvyU8OMrVGa%2BHNgnGuEE64Bjw2IXtn8ECOjo8l9zurkfoOiOYvcS0RdyXckrXX3dOHRTUXkzNjCKjpp0p5QvTzbDsXdS2Qq85YIATy4yx4oXaIdcEBrR4xhzRSVXa2rn6aRov2SNWj6sM76b1%2BBbLlYmNy4WXfqYev0D3kzzMFDHkznLFr2rckjlccjplJZmrfhiO4iz%2BQ4P8MwGE7Qu3Mk3zwO4fYe4YZ3HjE0lQMMW6%2F3zfWJ%2F%2BYhmleaV8epETnvn9t7hH9ZAvvjg%2BBxkYRFUONsf4KJRmw72ddLR1GYuEy5gvCvOvoWim1ajxS4T5k4ywMgxezgrGfYEIOcjVEMczsbxD8%3D%22%7D
+- Skills 覆盖栈优先级图：
+  - 源文件：[openclaw-skills-precedence.mmd](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/openclaw/diagrams/openclaw-skills-precedence.mmd)
+  - 打开编辑器：https://app.diagrams.net/?grid=0&pv=0&border=10&edit=_blank#create=%7B%22type%22%3A%22mermaid%22%2C%22compressed%22%3Atrue%2C%22data%22%3A%22fZDBDoIwDIafZkcMgfAAIhgPmhgvnueoMJkb6aZ48tkthDH0YLKk3fp9f5NdlelFw9GxJN6fWLymSqd8OeQsy2GohUTLsoKeo4ilJdX8oSsFFQEX3xWz64cBP3DN6xG%2F%2By7gfhjwI6A1mivi3yzZrmisnaXOtlIpu5RndGGjuYFwJLN00xtsbccFjLP%2FUZMXks6znOUh6Mf1ujZu4HaybgDp3iEIqEAPRmyegCgroM0xfTgB03dGX2vGuA8%3D%22%7D
+
 ## 2. 行为层（Behavior）
 
 ### 2.1 主链路（Main Flows）
@@ -94,6 +104,12 @@
 - CLI 扩展：插件通过 `cliRegistrars` 往 Commander program 注入命令（并做命令名冲突规避）。证据：[plugins/cli.ts](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/plugins/cli.ts#L20-L58)。
 - Gateway 扩展：插件通过 `gatewayHandlers` 注入方法名集合，最终合并为 `gatewayMethods`。证据：[server-plugins.ts](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/gateway/server-plugins.ts#L14-L49)、[server.impl.ts](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/src/gateway/server.impl.ts#L229-L245)。
 - Skills 扩展：发布包包含 `skills/`，并在文档中明确 workspace skills 路径约定。证据：[package.json](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/package.json#L11-L22)、[README.md](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw/README.md#L306-L311)。
+
+### 2.4 流程图（drawio-mcp）
+
+- Gateway 启动与 WebSocket 调用链路：
+  - 源文件：[openclaw-gateway-flows.mmd](file:///Users/litianyi/Documents/__secondlife/__project/myr2d2/doc/openclaw/diagrams/openclaw-gateway-flows.mmd)
+  - 打开编辑器：https://app.diagrams.net/?grid=0&pv=0&border=10&edit=_blank#create=%7B%22type%22%3A%22mermaid%22%2C%22compressed%22%3Atrue%2C%22data%22%3A%22fVPtbsIgFH0aE%2F1hYuYTuG52LmYzNqa%2Fr%2FSuJaPQAdX49rvQUrWOJY0inA%2FuOdXgT4uS4QuHUkM9WawmTwt6oLVKtvUR9bDVgLac8QakpV8HBzJuYaKYZLsJKNWQi4BzvxvBr9OAFwqKRMkvXk5nEfRuG8A70ZZcmgguzQMuBYtnuNBq30rLa4ww8iwwcjxmin2j281Qn%2BKjBkYiOPqdKXFdPBsPX7ujCqRE4ecJKof5ZPlKjwtluboPquyvG7CECWgKyqM1QkFfzCdFCyOhMZWynvBMnycQvCCdq8g6nY89e%2FqjD0XsAQU3TLnhg6yrx2UwCn63fdDuh3gDWQjUZlBggu%2Bx5MZq0OYPa2rN842lnPviugamYdrkeoPrO5LmvQCV6AUEeaAcfIExbGw3tERmueruP9xgRO9hw3meDSN2APqnVA5XgRAoSxzqdt1coro12kr57ojnXpf37PNjdmtznwNV0IBlzsqqW37VJXsbwMhKo2nFPxPQeUMpYBfDLw%3D%3D%22%7D
 
 ## 3. 风险层（Risk）
 

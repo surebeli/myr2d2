@@ -1,0 +1,34 @@
+sequenceDiagram
+  autonumber
+  participant U as User
+  participant D as ESP32 Device
+  participant W as WebSocket Server
+  participant M as MQTT Broker
+  participant P as UDP Peer
+  participant C as Cloud (ASR/LLM/TTS)
+
+  U->>D: Wake word
+  D->>D: Encode Opus frames
+
+  alt WebSocket 模式
+    D->>W: Connect + hello (JSON)
+    loop streaming
+      D->>W: Opus audio frame (binary)
+      W->>C: Forward audio
+    end
+    C-->>W: TTS audio / control (Opus + JSON)
+    W-->>D: Opus audio frame (binary)
+    W-->>D: Control JSON (state/tts/...)
+    D->>D: Decode + Playback
+  else MQTT + UDP 模式
+    D->>M: Connect + hello/control (JSON)
+    loop uplink audio
+      D->>P: UDP audio (AES encrypted)
+      P->>C: Forward audio
+    end
+    C-->>P: UDP downlink audio (AES encrypted)
+    P-->>D: UDP audio
+    M-->>D: Control JSON (state/params/...)
+    D->>D: Decode + Playback
+  end
+
