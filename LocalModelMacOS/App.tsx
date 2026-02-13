@@ -17,10 +17,11 @@ import type { Message } from './src/types';
 import { AppStoreProvider, useAppStore } from './src/state/store';
 
 import ManagerScreen from './src/screens/ManagerScreen';
+import SpeechAssistantScreen from './src/screens/SpeechAssistantScreen';
 
 const AppInner = () => {
   const isDarkMode = typeof Appearance?.getColorScheme === 'function' && Appearance.getColorScheme() === 'dark';
-  const [currentTab, setCurrentTab] = useState<'chat' | 'manager'>('manager');
+  const [currentTab, setCurrentTab] = useState<'chat' | 'manager' | 'speech'>('speech');
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const flatListRef = useRef<FlatList>(null);
@@ -86,6 +87,9 @@ const AppInner = () => {
         <TouchableOpacity onPress={() => setCurrentTab('manager')} style={[styles.tabBtn, currentTab === 'manager' ? styles.activeTab : undefined]}>
           <Text style={[styles.tabText, currentTab === 'manager' ? styles.activeTabText : textStyle]}>Manager</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => setCurrentTab('speech')} style={[styles.tabBtn, currentTab === 'speech' ? styles.activeTab : undefined]}>
+          <Text style={[styles.tabText, currentTab === 'speech' ? styles.activeTabText : textStyle]}>Speech</Text>
+        </TouchableOpacity>
       </View>
       
       <View style={styles.contentContainer}>
@@ -136,6 +140,10 @@ const AppInner = () => {
 
         <View style={[styles.screen, currentTab !== 'manager' ? styles.hidden : undefined]} pointerEvents={currentTab === 'manager' ? 'auto' : 'none'}>
           <ManagerScreen />
+        </View>
+
+        <View style={[styles.screen, currentTab !== 'speech' ? styles.hidden : undefined]} pointerEvents={currentTab === 'speech' ? 'auto' : 'none'}>
+          <SpeechAssistantScreen />
         </View>
       </View>
     </SafeAreaView>

@@ -1,0 +1,39 @@
+{
+  "wakeWords": ["小虾米"],
+  "replyText": "我在",
+  "powerMode": "auto",
+  "listening": {
+    "sampleRate": 16000,
+    "frameMs": 30,
+    "vadAggressiveness": 2,
+    "minSpeechMs": 400,
+    "silenceMsToEnd": 650,
+    "armedTimeoutMs": 8000
+  },
+  "whisper": {
+    "engine": "whisper",
+    "language": "zh",
+    "acModel": "large-v3",
+    "batteryModel": "small",
+    "whisperCommand": "whisper",
+    "whisperExtraArgs": ["--task", "transcribe", "--output_format", "txt", "--fp16", "False"],
+    "whisperCliCommand": "whisper-cli",
+    "whisperCliModelPathAc": "",
+    "whisperCliModelPathBattery": "",
+    "whisperCliExtraArgs": []
+  },
+  "openclaw": {
+    "command": "openclaw",
+    "mode": "agent",
+    "sessionId": "",
+    "to": "",
+    "agent": "",
+    "thinking": "",
+    "deliver": false
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8765
+  }
+}
+

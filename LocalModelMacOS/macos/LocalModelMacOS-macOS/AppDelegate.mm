@@ -11,7 +11,13 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  return [super applicationDidFinishLaunching:notification];
+  [super applicationDidFinishLaunching:notification];
+
+  NSWindow *window = self.window;
+  if (window) {
+    [window setContentSize:NSMakeSize(420, 560)];
+    [window setMinSize:NSMakeSize(360, 420)];
+  }
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

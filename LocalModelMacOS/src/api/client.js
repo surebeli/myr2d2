@@ -29,3 +29,44 @@ export const sendMessage = async (messages) => {
     throw error;
   }
 };
+
+const SPEECH_BASE_URL = 'http://127.0.0.1:8765';
+
+export const speechassistantHealth = async () => {
+  const res = await fetch(`${SPEECH_BASE_URL}/health`);
+  return res.status === 200;
+};
+
+export const speechassistantGetState = async () => {
+  const res = await fetch(`${SPEECH_BASE_URL}/state`);
+  if (!res.ok) throw new Error(`state ${res.status}`);
+  return await res.json();
+};
+
+export const speechassistantGetConfig = async () => {
+  const res = await fetch(`${SPEECH_BASE_URL}/config`);
+  if (!res.ok) throw new Error(`config ${res.status}`);
+  return await res.json();
+};
+
+export const speechassistantSetConfig = async (cfg) => {
+  const res = await fetch(`${SPEECH_BASE_URL}/config`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(cfg),
+  });
+  if (!res.ok) throw new Error(`set config ${res.status}`);
+  return await res.json();
+};
+
+export const speechassistantStartListening = async () => {
+  const res = await fetch(`${SPEECH_BASE_URL}/listening/start`, { method: 'POST' });
+  if (!res.ok) throw new Error(`start listening ${res.status}`);
+  return await res.json();
+};
+
+export const speechassistantStopListening = async () => {
+  const res = await fetch(`${SPEECH_BASE_URL}/listening/stop`, { method: 'POST' });
+  if (!res.ok) throw new Error(`stop listening ${res.status}`);
+  return await res.json();
+};

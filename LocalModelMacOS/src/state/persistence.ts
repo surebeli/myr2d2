@@ -6,6 +6,11 @@ type PersistedPayloadV1 = {
   state: Pick<AppState, 'manager' | 'chat'>;
 };
 
+type PersistedPayloadV2 = {
+  version: 2;
+  state: Pick<AppState, 'manager' | 'chat' | 'speechassistant'>;
+};
+
 const STORAGE_KEY = 'LocalModelMacOS.appState';
 
 function getStorage(): any | null {
@@ -25,14 +30,22 @@ export async function loadPersistedState(): Promise<Partial<AppState> | null> {
     return null;
   }
   const payload = parsed as Partial<PersistedPayloadV1>;
-  if (payload.version !== 1 || !payload.state) return null;
-  return payload.state as Partial<AppState>;
+  if (!payload || typeof payload !== 'object') return null;
+  const version = (payload as any).version;
+  const state = (payload as any).state;
+  if (!state) return null;
+  if (version === 1) {
+    return state as Partial<AppState>;
+  }
+  if (version === 2) {
+    return state as Partial<AppState>;
+  }
+  return null;
 }
 
-export async function savePersistedState(state: Pick<AppState, 'manager' | 'chat'>): Promise<void> {
+export async function savePersistedState(state: Pick<AppState, 'manager' | 'chat' | 'speechassistant'>): Promise<void> {
   const storage = getStorage();
   if (!storage) return;
-  const payload: PersistedPayloadV1 = { version: 1, state };
+  const payload: PersistedPayloadV2 = { version: 2, state };
   await storage.setItem(STORAGE_KEY, JSON.stringify(payload));
 }
-

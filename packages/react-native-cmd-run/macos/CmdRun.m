@@ -2,7 +2,7 @@
 #import <React/RCTLog.h>
 
 @implementation CmdRun {
-    NSTask *_serverTask;
+    NSMutableDictionary<NSString *, NSTask *> *_serverTasks;
 }
 
 RCT_EXPORT_MODULE()
@@ -65,34 +65,66 @@ RCT_EXPORT_METHOD(startServer:(NSString *)command
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if (_serverTask && [_serverTask isRunning]) {
+    [self startNamedServer:@"default"
+               withCommand:command
+                  withArgs:args
+                   withCwd:cwd
+                  resolver:resolve
+                  rejecter:reject];
+}
+
+RCT_EXPORT_METHOD(stopServer:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [self stopNamedServer:@"default" resolver:resolve rejecter:reject];
+}
+
+RCT_EXPORT_METHOD(startNamedServer:(NSString *)name
+                  withCommand:(NSString *)command
+                  withArgs:(NSArray *)args
+                  withCwd:(NSString *)cwd
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    if (!_serverTasks) {
+        _serverTasks = [NSMutableDictionary dictionary];
+    }
+    NSString *key = name ?: @"default";
+    NSTask *task = _serverTasks[key];
+    if (task && [task isRunning]) {
         resolve(@"Already running");
         return;
     }
 
-    _serverTask = [[NSTask alloc] init];
-    ConfigureTask(_serverTask, command, args, cwd);
-    
+    task = [[NSTask alloc] init];
+    ConfigureTask(task, command, args, cwd);
     NSError *error = nil;
-    BOOL success = [_serverTask launchAndReturnError:&error];
-    
+    BOOL success = [task launchAndReturnError:&error];
     if (success) {
+        _serverTasks[key] = task;
         resolve(@"Started");
     } else {
         reject(@"launch_error", error.localizedDescription, error);
     }
 }
 
-RCT_EXPORT_METHOD(stopServer:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(stopNamedServer:(NSString *)name
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if (_serverTask && [_serverTask isRunning]) {
-        [_serverTask terminate];
-        _serverTask = nil;
-        resolve(@"Stopped");
-    } else {
+    if (!_serverTasks) {
         resolve(@"Not running");
+        return;
     }
+    NSString *key = name ?: @"default";
+    NSTask *task = _serverTasks[key];
+    if (task && [task isRunning]) {
+        [task terminate];
+        [_serverTasks removeObjectForKey:key];
+        resolve(@"Stopped");
+        return;
+    }
+    resolve(@"Not running");
 }
 
 @end

@@ -11,9 +11,14 @@ type ChatState = {
   messages: Message[];
 };
 
+type SpeechAssistantState = {
+  baseUrl: string;
+};
+
 export type AppState = {
   manager: ManagerState;
   chat: ChatState;
+  speechassistant: SpeechAssistantState;
 };
 
 type Action =
@@ -22,7 +27,8 @@ type Action =
   | { type: 'manager/appendLog'; payload: string }
   | { type: 'manager/clearLogs' }
   | { type: 'chat/appendMessage'; payload: Message }
-  | { type: 'chat/setMessages'; payload: Message[] };
+  | { type: 'chat/setMessages'; payload: Message[] }
+  | { type: 'speechassistant/setBaseUrl'; payload: string };
 
 const DEFAULT_PROJECT_ROOT = '/Users/litianyi/Documents/__secondlife/__project/myr2d2';
 
@@ -39,6 +45,9 @@ const initialState: AppState = {
         content: 'Welcome to the Local Model macOS Client! Ensure your server is running on port 8000.',
       },
     ],
+  },
+  speechassistant: {
+    baseUrl: 'http://127.0.0.1:8765',
   },
 };
 
@@ -57,6 +66,7 @@ function reducer(state: AppState, action: Action): AppState {
         ...action.payload,
         manager: { ...state.manager, ...action.payload.manager },
         chat: { ...state.chat, ...action.payload.chat },
+        speechassistant: { ...state.speechassistant, ...action.payload.speechassistant },
       };
     }
     case 'manager/setProjectRoot': {
@@ -81,6 +91,9 @@ function reducer(state: AppState, action: Action): AppState {
           ? action.payload.slice(action.payload.length - MAX_CHAT_MESSAGES)
           : action.payload;
       return { ...state, chat: { ...state.chat, messages: clipped } };
+    }
+    case 'speechassistant/setBaseUrl': {
+      return { ...state, speechassistant: { ...state.speechassistant, baseUrl: action.payload } };
     }
     default: {
       return state;
@@ -118,7 +131,7 @@ export function AppStoreProvider({ children }: { children: React.ReactNode }) {
     if (!hydratedRef.current) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     saveTimerRef.current = setTimeout(() => {
-      savePersistedState({ manager: state.manager, chat: state.chat }).catch(() => {});
+      savePersistedState({ manager: state.manager, chat: state.chat, speechassistant: state.speechassistant }).catch(() => {});
     }, 500);
     return () => {
       if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
