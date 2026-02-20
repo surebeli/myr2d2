@@ -1,0 +1,4 @@
+# name	working_dir	command
+zeroclaw	/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myzeroclaw	test -x target/release/zeroclaw && target/release/zeroclaw --help
+openclaw	/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/myopenclaw	OPENCLAW_STATE_DIR="$PWD/.bench-openclaw-state" OPENCLAW_CONFIG_PATH="$PWD/.bench-openclaw-config.json" /Users/litianyi/.nvm/versions/node/v22.14.0/bin/node openclaw.mjs --help
+nanobot	/Users/litianyi/Documents/__secondlife/__project/myr2d2/thirdparty/mynanobot	HOME="$PWD/.bench-home" .venv-bench/bin/python -m nanobot --help

@@ -7,3 +7,6 @@
 [submodule "thirdparty/mynanobot"]
 	path = thirdparty/mynanobot
 	url = https://github.com/surebeli/mynanobot
+[submodule "thirdparty/myzeroclaw"]
+	path = thirdparty/myzeroclaw
+	url = https://github.com/surebeli/myzeroclaw

@@ -1,0 +1,4 @@
+name,status,exit_code,elapsed_seconds,max_rss_kb,command
+zeroclaw,ok,0,0.0400,n/a,test -x target/release/zeroclaw && target/release/zeroclaw --help
+openclaw,ok,0,2.3667,n/a,OPENCLAW_STATE_DIR="$PWD/.bench-openclaw-state" OPENCLAW_CONFIG_PATH="$PWD/.bench-openclaw-config.json" /Users/litianyi/.nvm/versions/node/v22.14.0/bin/node openclaw.mjs --help
+nanobot,ok,0,1.0200,n/a,HOME="$PWD/.bench-home" .venv-bench/bin/python -m nanobot --help

@@ -26,3 +26,7 @@
 **/.xcode.env.local
 
 thirdparty/my-local-model/models/
+
+# benchmark artifacts (keep summary/report files in version control)
+doc/benchmarks/thirdparty-claws-*/**/*.log
+doc/benchmarks/thirdparty-claws-*/default-apps.tsv
