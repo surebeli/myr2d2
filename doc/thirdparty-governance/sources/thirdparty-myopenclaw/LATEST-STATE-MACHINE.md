@@ -1,5 +1,5 @@
-# Latest Architecture Baseline
+# Latest State Machine Baseline
 
 - Repo: `thirdparty/myopenclaw`
 - Commit: `5dd304d1c65952646b2544132bb9948e5adc57c5`
-- Document: `ARCHITECTURE-5dd304d1c.md`
+- Document: `STATE-MACHINE-5dd304d1c.md`
