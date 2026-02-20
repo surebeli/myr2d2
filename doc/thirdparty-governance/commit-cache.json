@@ -1,0 +1,55 @@
+{
+  "generated_at_utc": "2026-02-20 17:50:31 UTC",
+  "workspace": "/Users/litianyi/Documents/__secondlife/__project/myr2d2",
+  "source_count": 4,
+  "sources": [
+    {
+      "id": "thirdparty-my-xiaozhi-esp32",
+      "repo_path": "thirdparty/my-xiaozhi-esp32",
+      "commit_id": "6be351b5a045e9d100ff4b37942752e8316f2d04",
+      "commit_short": "6be351b",
+      "dirty": false,
+      "current_ref": "main",
+      "tracking_ref": "origin/main",
+      "origin_url": "https://github.com/surebeli/my-xiaozhi-esp32",
+      "upstream_url": "",
+      "origin_head": "origin/main"
+    },
+    {
+      "id": "thirdparty-mynanobot",
+      "repo_path": "thirdparty/mynanobot",
+      "commit_id": "890d7cf85327c13500be5ed13db70f87a4e91243",
+      "commit_short": "890d7cf",
+      "dirty": false,
+      "current_ref": "main",
+      "tracking_ref": "origin/main",
+      "origin_url": "https://github.com/surebeli/mynanobot",
+      "upstream_url": "",
+      "origin_head": "origin/main"
+    },
+    {
+      "id": "thirdparty-myopenclaw",
+      "repo_path": "thirdparty/myopenclaw",
+      "commit_id": "4c86010b0620a1a689bef2e47c7f1b2b00891aa9",
+      "commit_short": "4c86010b0",
+      "dirty": false,
+      "current_ref": "main",
+      "tracking_ref": "origin/main",
+      "origin_url": "https://github.com/surebeli/myopenclaw",
+      "upstream_url": "",
+      "origin_head": "origin/main"
+    },
+    {
+      "id": "thirdparty-myzeroclaw",
+      "repo_path": "thirdparty/myzeroclaw",
+      "commit_id": "fa0c77385c536de83ba2ce401a1b4e700b80eabd",
+      "commit_short": "fa0c773",
+      "dirty": false,
+      "current_ref": "main",
+      "tracking_ref": "origin/main",
+      "origin_url": "https://github.com/surebeli/myzeroclaw",
+      "upstream_url": "",
+      "origin_head": "origin/main"
+    }
+  ]
+}
