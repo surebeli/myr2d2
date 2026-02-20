@@ -1,8 +1,20 @@
 {
-  "generated_at_utc": "2026-02-20 17:50:31 UTC",
+  "generated_at_utc": "2026-02-20 18:24:31 UTC",
   "workspace": "/Users/litianyi/Documents/__secondlife/__project/myr2d2",
   "source_count": 4,
   "sources": [
+    {
+      "id": "thirdparty-myopenclaw",
+      "repo_path": "thirdparty/myopenclaw",
+      "commit_id": "5dd304d1c65952646b2544132bb9948e5adc57c5",
+      "commit_short": "5dd304d1c",
+      "dirty": false,
+      "current_ref": "DETACHED",
+      "tracking_ref": "",
+      "origin_url": "https://github.com/surebeli/myopenclaw",
+      "upstream_url": "https://github.com/openclaw/openclaw",
+      "origin_head": "origin/main"
+    },
     {
       "id": "thirdparty-my-xiaozhi-esp32",
       "repo_path": "thirdparty/my-xiaozhi-esp32",
@@ -24,18 +36,6 @@
       "current_ref": "main",
       "tracking_ref": "origin/main",
       "origin_url": "https://github.com/surebeli/mynanobot",
-      "upstream_url": "",
-      "origin_head": "origin/main"
-    },
-    {
-      "id": "thirdparty-myopenclaw",
-      "repo_path": "thirdparty/myopenclaw",
-      "commit_id": "4c86010b0620a1a689bef2e47c7f1b2b00891aa9",
-      "commit_short": "4c86010b0",
-      "dirty": false,
-      "current_ref": "main",
-      "tracking_ref": "origin/main",
-      "origin_url": "https://github.com/surebeli/myopenclaw",
       "upstream_url": "",
       "origin_head": "origin/main"
     },
